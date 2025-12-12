@@ -4,12 +4,40 @@ const db = require('../model/db');
 
 
 router.get("/", function (req, res) {
-    res.render('index', {title:"EJS 메인페이지"});
+    res.render('main', {title:"영화 리뷰 사이트"});
 })
 
 router.get("/about", function (req, res){
   res.send("This is about page");
 })
+
+
+router.post("/review/create",function(req,res){
+    let movie_id = req.body.movie_id;
+    let review = req.body.review;
+
+    if(movid_id == ''  || movie_id == 0){
+        res.send({success:400});
+    }else{
+            db.reviews.create({
+                movie_id:movie_id,
+                review:review   
+        }).then(function(result){
+            res.send({success:200})
+        })
+    }
+
+    db.reviews.create({
+            movie_id:movie_id,
+            review:review   
+    }).then(function(result){
+        res.send({success:200})
+    })  
+    
+
+})
+
+
 
 router.post("/postapi", function (req, res){
   let body = req.body;
